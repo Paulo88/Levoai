@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Levoaí - Suas compras, sem sair de casa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Header fixo */
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #e97318 100%);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #2563eb, #e97318);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .logo-icon::after {
+            content: '→';
+            position: absolute;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .icon-button {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .icon-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e97318;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Menu Bar */
+        .menu-bar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 80px;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+
+        .menu-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            padding: 1rem 2rem;
+        }
+
+        .menu-item {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: linear-gradient(135deg, #2563eb, #e97318);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Banner Principal */
+        .banner {
+            background: linear-gradient(135deg, #2563eb 0%, #e97318 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg) translate(-50%, -50%); }
+            100% { transform: rotate(360deg) translate(-50%, -50%); }
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .banner p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Categorias */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #2563eb;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #e97318;
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-name {
+            font-weight: bold;
+            color: #2563eb;
+            font-size: 1.1rem;
+        }
+
+        /* Produtos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            color: #e97318;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb, #e97318);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .offer-badge {
+            background: #e97318;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .product-card {
+            position: relative;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+            
+            .menu-content {
+                padding: 1rem;
+                justify-content: center;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .banner {
+                padding: 2rem 1rem;
+            }
+            
+            .banner h1 {
+                font-size: 2rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, #1e40af 0%, #d97317 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="20" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="20" cy="50" r="1" fill="rgba(255,255,255,0.05)"/></svg>');
+            animation: backgroundMove 30s infinite linear;
+        }
+
+        @keyframes backgroundMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-60px, -60px); }
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            border-radius: 2px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .logo-icon {
+            margin-right: 0.8rem;
+        }
+
+        .footer-description {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-icon:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .footer-links a::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #fbbf24;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 20px;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+
+        .delivery-info, .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .delivery-item, .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .delivery-item:hover, .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateX(10px);
+        }
+
+        .delivery-icon, .contact-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .delivery-item strong, .contact-item strong {
+            display: block;
+            color: white;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .delivery-item p, .contact-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        .footer-bottom {
+            background: rgba(0,0,0,0.2);
+            padding: 1.5rem 2rem;
+            backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .company-info p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+            margin: 0.2rem 0;
+        }
+
+        .payment-methods {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .payment-icons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .payment-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .payment-icon:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .footer-wave {
+            position: absolute;
+            bottom: -1px;
+            width: 100%;
+            height: 60px;
+            z-index: 0;
+        }
+
+        .footer-wave svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Footer Responsive */
+        @media (max-width: 768px) {
+            .footer-content {
+                padding: 3rem 1rem 2rem;
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .social-icons {
+                justify-content: center;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .delivery-info, .contact-info {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Fixo -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon"></div>
+                levoaí
+            </a>
+            <div class="header-icons">
+                <button class="icon-button" onclick="toggleLogin()">
+                    👤
+                </button>
+                <button class="icon-button" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Bar -->
+    <nav class="menu-bar">
+        <div class="menu-content">
+            <a href="#promocoes" class="menu-item">Promoções</a>
+            <a href="#sobre" class="menu-item">Sobre</a>
+            <a href="#equipe" class="menu-item">Nossa equipe</a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <!-- Banner Principal -->
+        <section class="banner">
+            <div class="banner-content">
+                <h1>🎉 Super Promoção!</h1>
+                <p>Suas compras, sem sair de casa. Entrega rápida e segura!</p>
+            </div>
+        </section>
+
+        <!-- Categorias -->
+        <section class="section">
+            <h2 class="section-title">Categorias</h2>
+            <div class="categories-grid">
+                <div class="category-card" onclick="filterCategory('carnes')">
+                    <div class="category-icon">🥩</div>
+                    <div class="category-name">Carnes</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🥤</div>
+                    <div class="category-name">Bebidas</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('hortifruti')">
+                    <div class="category-icon">🥕</div>
+                    <div class="category-name">Hortifruti</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('higiene')">
+                    <div class="category-icon">🧴</div>
+                    <div class="category-name">Higiene</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('limpeza')">
+                    <div class="category-icon">🧽</div>
+                    <div class="category-name">Limpeza</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos em Destaque -->
+        <section class="section">
+            <h2 class="section-title">🔥 Ofertas</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="offer-badge">-30%</div>
+                    <div class="product-image">🥩</div>
+                    <div class="product-name">Carne Bovina Premium</div>
+                    <div class="product-price">R$ 24,99 /kg</div>
+                    <button class="add-to-cart" onclick="addToCart('Carne Bovina Premium', 24.99)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="offer-badge">-20%</div>
+                    <div class="product-image">🥤</div>
+                    <div class="product-name">Refrigerante 2L</div>
+                    <div class="product-price">R$ 4,99</div>
+                    <button class="add-to-cart" onclick="addToCart('Refrigerante 2L', 4.99)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="offer-badge">-25%</div>
+                    <div class="product-image">🥕</div>
+                    <div class="product-name">Kit Legumes</div>
+                    <div class="product-price">R$ 8,99</div>
+                    <button class="add-to-cart" onclick="addToCart('Kit Legumes', 8.99)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lista Completa de Produtos -->
+        <section class="section">
+            <h2 class="section-title">Todos os Produtos</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🧴</div>
+                    <div class="product-name">Shampoo 400ml</div>
+                    <div class="product-price">R$ 12,99</div>
+                    <button class="add-to-cart" onclick="addToCart('Shampoo 400ml', 12.99)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🧽</div>
+                    <div class="product-name">Detergente 500ml</div>
+                    <div class="product-price">R$ 3,49</div>
+                    <button class="add-to-cart" onclick="addToCart('Detergente 500ml', 3.49)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🍞</div>
+                    <div class="product-name">Pão de Forma</div>
+                    <div class="product-price">R$ 6,99</div>
+                    <button class="add-to-cart" onclick="addToCart('Pão de Forma', 6.99)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🥛</div>
+                    <div class="product-name">Leite Integral 1L</div>
+                    <div class="product-price">R$ 4,29</div>
+                    <button class="add-to-cart" onclick="addToCart('Leite Integral 1L', 4.29)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🍎</div>
+                    <div class="product-name">Maçã Gala</div>
+                    <div class="product-price">R$ 7,99 /kg</div>
+                    <button class="add-to-cart" onclick="addToCart('Maçã Gala', 7.99)">Adicionar ao Carrinho</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🍗</div>
+                    <div class="product-name">Frango Inteiro</div>
+                    <div class="product-price">R$ 8,99 /kg</div>
+                    <button class="add-to-cart" onclick="addToCart('Frango Inteiro', 8.99)">Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo-icon"></div>
+                    <span>levoaí</span>
+                </div>
+                <p class="footer-description">
+                    Suas compras, sem sair de casa. Delivery rápido e seguro para toda Brusque e região.
+                </p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">📘</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">💬</a>
+                    <a href="#" class="social-icon">📺</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Atendimento</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Trocas e Devoluções</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Categorias</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Carnes e Frangos</a></li>
+                    <li><a href="#">Bebidas</a></li>
+                    <li><a href="#">Hortifruti</a></li>
+                    <li><a href="#">Higiene Pessoal</a></li>
+                    <li><a href="#">Limpeza</a></li>
+                    <li><a href="#">Padaria</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Entrega</h3>
+                <div class="delivery-info">
+                    <div class="delivery-item">
+                        <span class="delivery-icon">🚚</span>
+                        <div>
+                            <strong>Entrega Expressa</strong>
+                            <p>Em até 2 horas</p>
+                        </div>
+                    </div>
+                    <div class="delivery-item">
+                        <span class="delivery-icon">📍</span>
+                        <div>
+                            <strong>Cobertura</strong>
+                            <p>Todo Brusque e região</p>
+                        </div>
+                    </div>
+                    <div class="delivery-item">
+                        <span class="delivery-icon">💳</span>
+                        <div>
+                            <strong>Pagamento</strong>
+                            <p>PIX, Cartão, Dinheiro</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <div>
+                            <strong>(47) 99999-9999</strong>
+                            <p>WhatsApp</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div>
+                            <strong>contato@levoai.com.br</strong>
+                            <p>E-mail</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🕒</span>
+                        <div>
+                            <strong>7h às 22h</strong>
+                            <p>Todos os dias</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-bottom-content">
+                <div class="company-info">
+                    <p>&copy; 2025 Levoaí Delivery LTDA. Todos os direitos reservados.</p>
+                    <p>CNPJ: 12.345.678/0001-90 | Brusque - Santa Catarina</p>
+                </div>
+                <div class="payment-methods">
+                    <span>Formas de pagamento:</span>
+                    <div class="payment-icons">
+                        <span class="payment-icon">💳</span>
+                        <span class="payment-icon">💰</span>
+                        <span class="payment-icon">📱</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 L0,120 Z" fill="url(#waveGradient)"></path>
+                <defs>
+                    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.3" />
+                        <stop offset="100%" style="stop-color:#e97318;stop-opacity:0.3" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </footer>
+
+    <script>
+        let cartItems = [];
+        let cartCount = 0;
+
+        function addToCart(productName, price) {
+            cartItems.push({name: productName, price: price});
+            cartCount++;
+            document.getElementById('cartCount').textContent = cartCount;
+            
+            // Animação de feedback
+            const cartIcon = document.querySelector('.icon-button:last-child');
+            cartIcon.style.transform = 'scale(1.2)';
+            cartIcon.style.background = '#e97318';
+            
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+                cartIcon.style.background = 'rgba(255,255,255,0.2)';
+            }, 200);
+            
+            alert(`${productName} adicionado ao carrinho!`);
+        }
+
+        function toggleCart() {
+            if (cartItems.length === 0) {
+                alert('Seu carrinho está vazio!');
+            } else {
+                let cartContent = 'Itens no seu carrinho:\n\n';
+                let total = 0;
+                cartItems.forEach((item, index) => {
+                    cartContent += `${index + 1}. ${item.name} - R$ ${item.price.toFixed(2)}\n`;
+                    total += item.price;
+                });
+                cartContent += `\nTotal: R$ ${total.toFixed(2)}`;
+                alert(cartContent);
+            }
+        }
+
+        function toggleLogin() {
+            alert('Sistema de login em desenvolvimento!');
+        }
+
+        function filterCategory(category) {
+            alert(`Filtrando produtos da categoria: ${category}`);
+        }
+
+        // Scroll suave para links do menu
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = item.getAttribute('href');
+                if (target.startsWith('#')) {
+                    // Scroll suave seria implementado aqui
+                    alert(`Navegando para: ${item.textContent}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
