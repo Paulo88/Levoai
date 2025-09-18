@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +26,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
 
         .header-content {
@@ -34,6 +35,12 @@
             align-items: center;
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .logo-img {
+            max-height: 40px;
+            /* limita a altura máxima */
+            width: auto;
         }
 
         .logo {
@@ -85,20 +92,43 @@
             align-items: center;
         }
 
+        .icon-with-text {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            /* espaço entre ícone e texto */
+            cursor: pointer;
+        }
+
         .icon-button {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
-            padding: 0.75rem;
+            width: 45px;
+            /* largura fixa */
+            height: 43px;
+            /* altura fixa */
             border-radius: 50%;
+            /* círculo perfeito */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
+            font-size: 1.2rem;
+            /* tamanho do emoji */
         }
 
         .icon-button:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
+        }
+
+        .icon-text {
+            font-size: 0.9rem;
+            color: white;
+            font-weight: 500;
         }
 
         .cart-count {
@@ -120,7 +150,7 @@
         /* Menu Bar */
         .menu-bar {
             background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             margin-top: 80px;
             position: sticky;
             top: 80px;
@@ -181,8 +211,13 @@
         }
 
         @keyframes float {
-            0% { transform: rotate(0deg) translate(-50%, -50%); }
-            100% { transform: rotate(360deg) translate(-50%, -50%); }
+            0% {
+                transform: rotate(0deg) translate(-50%, -50%);
+            }
+
+            100% {
+                transform: rotate(360deg) translate(-50%, -50%);
+            }
         }
 
         .banner-content {
@@ -224,7 +259,7 @@
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
             border: 2px solid transparent;
@@ -232,7 +267,7 @@
 
         .category-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
             border-color: #e97318;
         }
 
@@ -258,14 +293,14 @@
             background: white;
             border-radius: 15px;
             padding: 1.5rem;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .product-image {
@@ -331,24 +366,24 @@
             .header-content {
                 padding: 0 1rem;
             }
-            
+
             .menu-content {
                 padding: 1rem;
                 justify-content: center;
             }
-            
+
             .main-content {
                 padding: 1rem;
             }
-            
+
             .banner {
                 padding: 2rem 1rem;
             }
-            
+
             .banner h1 {
                 font-size: 2rem;
             }
-            
+
             .categories-grid {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             }
@@ -375,8 +410,13 @@
         }
 
         @keyframes backgroundMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-60px, -60px); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(-60px, -60px);
+            }
         }
 
         .footer-content {
@@ -417,12 +457,20 @@
             margin-bottom: 1rem;
         }
 
+        .footer-logo-img {
+            height: 60px;
+            /* ajusta conforme seu design */
+            width: auto;
+            /* mantém proporção */
+            margin-bottom: 1rem;
+        }
+
         .footer-logo .logo-icon {
             margin-right: 0.8rem;
         }
 
         .footer-description {
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             line-height: 1.6;
             margin-bottom: 2rem;
             font-size: 1rem;
@@ -436,7 +484,7 @@
         .social-icon {
             width: 45px;
             height: 45px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -448,9 +496,9 @@
         }
 
         .social-icon:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .footer-links {
@@ -462,7 +510,7 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: all 0.3s ease;
             font-size: 0.95rem;
@@ -489,33 +537,37 @@
             opacity: 1;
         }
 
-        .delivery-info, .contact-info {
+        .delivery-info,
+        .contact-info {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
         }
 
-        .delivery-item, .contact-item {
+        .delivery-item,
+        .contact-item {
             display: flex;
             align-items: center;
             gap: 1rem;
             padding: 1rem;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
 
-        .delivery-item:hover, .contact-item:hover {
-            background: rgba(255,255,255,0.2);
+        .delivery-item:hover,
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: translateX(10px);
         }
 
-        .delivery-icon, .contact-icon {
+        .delivery-icon,
+        .contact-icon {
             font-size: 1.5rem;
             width: 40px;
             height: 40px;
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -523,21 +575,23 @@
             flex-shrink: 0;
         }
 
-        .delivery-item strong, .contact-item strong {
+        .delivery-item strong,
+        .contact-item strong {
             display: block;
             color: white;
             font-size: 0.95rem;
             margin-bottom: 0.2rem;
         }
 
-        .delivery-item p, .contact-item p {
-            color: rgba(255,255,255,0.8);
+        .delivery-item p,
+        .contact-item p {
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.85rem;
             margin: 0;
         }
 
         .footer-bottom {
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
             padding: 1.5rem 2rem;
             backdrop-filter: blur(20px);
             position: relative;
@@ -555,7 +609,7 @@
         }
 
         .company-info p {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             margin: 0.2rem 0;
         }
@@ -564,7 +618,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
 
@@ -576,7 +630,7 @@
         .payment-icon {
             width: 35px;
             height: 35px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -586,7 +640,7 @@
         }
 
         .payment-icon:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             transform: scale(1.1);
         }
 
@@ -610,54 +664,63 @@
                 grid-template-columns: 1fr;
                 gap: 2.5rem;
             }
-            
+
             .footer-bottom-content {
                 flex-direction: column;
                 text-align: center;
                 gap: 1.5rem;
             }
-            
+
             .social-icons {
                 justify-content: center;
             }
-            
+
             .payment-methods {
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            
-            .delivery-info, .contact-info {
+
+            .delivery-info,
+            .contact-info {
                 gap: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
     <!-- Header Fixo -->
     <header class="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <div class="logo-icon"></div>
-                levoaí
+                <img src="img/logo.png" alt="Levoaí" class="logo-img">
             </a>
             <div class="header-icons">
-                <button class="icon-button" onclick="toggleLogin()">
-                    👤
-                </button>
-                <button class="icon-button" onclick="toggleCart()">
-                    🛒
-                    <span class="cart-count" id="cartCount">0</span>
-                </button>
+                <div class="icon-with-text" onclick="toggleLogin()">
+                    <button class="icon-button">👤</button>
+                    <span class="icon-text">Login</span>
+                </div>
+                <div class="icon-with-text" onclick="toggleCart()">
+                    <button class="icon-button">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                    <span class="icon-text">Carrinho</span>
+                </div>
             </div>
+
         </div>
     </header>
 
     <!-- Menu Bar -->
     <nav class="menu-bar">
         <div class="menu-content">
+            <a href="#promocoes" class="menu-item">Catálogo / Produtos</a>
             <a href="#promocoes" class="menu-item">Promoções</a>
             <a href="#sobre" class="menu-item">Sobre</a>
             <a href="#equipe" class="menu-item">Nossa equipe</a>
+            <a href="#equipe" class="menu-item">Como Funciona</a>
+            <a href="#equipe" class="menu-item">Fale Conosco / Suporte</a>
         </div>
     </nav>
 
@@ -677,11 +740,15 @@
             <div class="categories-grid">
                 <div class="category-card" onclick="filterCategory('carnes')">
                     <div class="category-icon">🥩</div>
-                    <div class="category-name">Carnes</div>
+                    <div class="category-name">Açougue & Frios</div>
                 </div>
                 <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">🥤</div>
-                    <div class="category-name">Bebidas</div>
+                    <div class="category-icon">🛒</div>
+                    <div class="category-name">Mercearia</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">💚 👨🏻‍🌾</div>
+                    <div class="category-name">Saudabilidade</div>
                 </div>
                 <div class="category-card" onclick="filterCategory('hortifruti')">
                     <div class="category-icon">🥕</div>
@@ -689,32 +756,66 @@
                 </div>
                 <div class="category-card" onclick="filterCategory('higiene')">
                     <div class="category-icon">🧴</div>
-                    <div class="category-name">Higiene</div>
+                    <div class="category-name">Higiene & Beleza</div>
                 </div>
                 <div class="category-card" onclick="filterCategory('limpeza')">
                     <div class="category-icon">🧽</div>
                     <div class="category-name">Limpeza</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🐶 🐱</div>
+                    <div class="category-name">Pet Shop</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🍾</div>
+                    <div class="category-name">Especial de Bebidas</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🛍️</div>
+                    <div class="category-name">Especial Importados</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🍫</div>
+                    <div class="category-name">Nestlé</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🥫</div>
+                    <div class="category-name">Quero</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🍵</div>
+                    <div class="category-name">Vale Fertil</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🧻</div>
+                    <div class="category-name">Cremer</div>
+                </div>
+                <div class="category-card" onclick="filterCategory('bebidas')">
+                    <div class="category-icon">🧴</div>
+                    <div class="category-name">Brilholac</div>
                 </div>
             </div>
         </section>
 
         <!-- Produtos em Destaque -->
         <section class="section">
-            <h2 class="section-title">🔥 Ofertas</h2>
+            <h2 class="section-title">🔥 Ofertas (válidas de 15/09 a 21/09)</h2>
             <div class="products-grid">
                 <div class="product-card">
                     <div class="offer-badge">-30%</div>
                     <div class="product-image">🥩</div>
                     <div class="product-name">Carne Bovina Premium</div>
                     <div class="product-price">R$ 24,99 /kg</div>
-                    <button class="add-to-cart" onclick="addToCart('Carne Bovina Premium', 24.99)">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart" onclick="addToCart('Carne Bovina Premium', 24.99)">Adicionar ao
+                        Carrinho</button>
                 </div>
                 <div class="product-card">
                     <div class="offer-badge">-20%</div>
                     <div class="product-image">🥤</div>
                     <div class="product-name">Refrigerante 2L</div>
                     <div class="product-price">R$ 4,99</div>
-                    <button class="add-to-cart" onclick="addToCart('Refrigerante 2L', 4.99)">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart" onclick="addToCart('Refrigerante 2L', 4.99)">Adicionar ao
+                        Carrinho</button>
                 </div>
                 <div class="product-card">
                     <div class="offer-badge">-25%</div>
@@ -734,13 +835,15 @@
                     <div class="product-image">🧴</div>
                     <div class="product-name">Shampoo 400ml</div>
                     <div class="product-price">R$ 12,99</div>
-                    <button class="add-to-cart" onclick="addToCart('Shampoo 400ml', 12.99)">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart" onclick="addToCart('Shampoo 400ml', 12.99)">Adicionar ao
+                        Carrinho</button>
                 </div>
                 <div class="product-card">
                     <div class="product-image">🧽</div>
                     <div class="product-name">Detergente 500ml</div>
                     <div class="product-price">R$ 3,49</div>
-                    <button class="add-to-cart" onclick="addToCart('Detergente 500ml', 3.49)">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart" onclick="addToCart('Detergente 500ml', 3.49)">Adicionar ao
+                        Carrinho</button>
                 </div>
                 <div class="product-card">
                     <div class="product-image">🍞</div>
@@ -752,7 +855,8 @@
                     <div class="product-image">🥛</div>
                     <div class="product-name">Leite Integral 1L</div>
                     <div class="product-price">R$ 4,29</div>
-                    <button class="add-to-cart" onclick="addToCart('Leite Integral 1L', 4.29)">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart" onclick="addToCart('Leite Integral 1L', 4.29)">Adicionar ao
+                        Carrinho</button>
                 </div>
                 <div class="product-card">
                     <div class="product-image">🍎</div>
@@ -764,7 +868,8 @@
                     <div class="product-image">🍗</div>
                     <div class="product-name">Frango Inteiro</div>
                     <div class="product-price">R$ 8,99 /kg</div>
-                    <button class="add-to-cart" onclick="addToCart('Frango Inteiro', 8.99)">Adicionar ao Carrinho</button>
+                    <button class="add-to-cart" onclick="addToCart('Frango Inteiro', 8.99)">Adicionar ao
+                        Carrinho</button>
                 </div>
             </div>
         </section>
@@ -775,8 +880,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <div class="logo-icon"></div>
-                    <span>levoaí</span>
+                    <img src="img/logo.png" alt="Levoaí" class="footer-logo-img">
                 </div>
                 <p class="footer-description">
                     Suas compras, sem sair de casa. Delivery rápido e seguro para toda Brusque e região.
@@ -818,8 +922,8 @@
                     <div class="delivery-item">
                         <span class="delivery-icon">🚚</span>
                         <div>
-                            <strong>Entrega Expressa</strong>
-                            <p>Em até 2 horas</p>
+                            <strong>Entrega </strong>
+                            <p>Conforme agendamento</p>
                         </div>
                     </div>
                     <div class="delivery-item">
@@ -833,7 +937,7 @@
                         <span class="delivery-icon">💳</span>
                         <div>
                             <strong>Pagamento</strong>
-                            <p>PIX, Cartão, Dinheiro</p>
+                            <p>PIX</p>
                         </div>
                     </div>
                 </div>
@@ -859,8 +963,8 @@
                     <div class="contact-item">
                         <span class="contact-icon">🕒</span>
                         <div>
-                            <strong>7h às 22h</strong>
-                            <p>Todos os dias</p>
+                            <strong>8h às 22h</strong>
+                            <p>Seg a Sab(até 12hrs)</p>
                         </div>
                     </div>
                 </div>
@@ -876,8 +980,6 @@
                 <div class="payment-methods">
                     <span>Formas de pagamento:</span>
                     <div class="payment-icons">
-                        <span class="payment-icon">💳</span>
-                        <span class="payment-icon">💰</span>
                         <span class="payment-icon">📱</span>
                     </div>
                 </div>
@@ -886,7 +988,8 @@
 
         <div class="footer-wave">
             <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 L0,120 Z" fill="url(#waveGradient)"></path>
+                <path d="M0,60 C150,120 350,0 600,60 C850,120 1050,0 1200,60 L1200,120 L0,120 Z"
+                    fill="url(#waveGradient)"></path>
                 <defs>
                     <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.3" />
@@ -902,20 +1005,20 @@
         let cartCount = 0;
 
         function addToCart(productName, price) {
-            cartItems.push({name: productName, price: price});
+            cartItems.push({ name: productName, price: price });
             cartCount++;
             document.getElementById('cartCount').textContent = cartCount;
-            
+
             // Animação de feedback
             const cartIcon = document.querySelector('.icon-button:last-child');
             cartIcon.style.transform = 'scale(1.2)';
             cartIcon.style.background = '#e97318';
-            
+
             setTimeout(() => {
                 cartIcon.style.transform = 'scale(1)';
                 cartIcon.style.background = 'rgba(255,255,255,0.2)';
             }, 200);
-            
+
             alert(`${productName} adicionado ao carrinho!`);
         }
 
@@ -955,4 +1058,5 @@
         });
     </script>
 </body>
+
 </html>
