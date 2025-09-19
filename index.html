@@ -188,52 +188,86 @@
         }
 
         /* Banner Principal */
-        .banner {
-            background: linear-gradient(135deg, #2563eb 0%, #e97318 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            color: white;
-            text-align: center;
-            margin-bottom: 2rem;
+        .banner-carousel {
             position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 2rem auto;
             overflow: hidden;
+            border-radius: 20px;
         }
 
-        .banner::before {
-            content: '';
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .slide img {
+            width: 100%;
+            display: block;
+            border-radius: 20px;
+        }
+
+        /* Botões (setas) */
+        .prev,
+        .next {
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            animation: float 20s infinite linear;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(204, 73, 73, 0);
+            /*deixei transparente no momento*/
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 1.5rem;
         }
 
-        @keyframes float {
-            0% {
-                transform: rotate(0deg) translate(-50%, -50%);
-            }
-
-            100% {
-                transform: rotate(360deg) translate(-50%, -50%);
-            }
+        .prev {
+            left: 10px;
         }
 
-        .banner-content {
-            position: relative;
-            z-index: 1;
+        .next {
+            right: 10px;
         }
 
-        .banner h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .prev:hover,
+        .next:hover {
+            background: rgba(44, 41, 41, 0.322);
         }
 
-        .banner p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        /* Indicadores (pontinhos) */
+        .indicators {
+            text-align: center;
+            position: absolute;
+            bottom: 15px;
+            width: 100%;
         }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 4px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .dot.active {
+            background-color: white;
+        }
+
+
+
+
 
         /* Categorias */
         .section {
@@ -274,6 +308,30 @@
         .category-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+        }
+
+        .category-icon img {
+            width: 3.5rem;
+            /* mesmo tamanho da font-size dos emojis */
+            height: auto;
+            /* mantém a proporção */
+            display: inline-block;
+        }
+
+        /* Para suportar múltiplas imagens no mesmo card */
+        .multiple-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            /* espaço entre as logos */
+            align-items: center;
+        }
+
+        .brand-icon {
+            width: 40px;
+            /* ajuste para combinar com o tamanho dos emojis */
+            height: auto;
+            object-fit: contain;
         }
 
         .category-name {
@@ -478,28 +536,28 @@
 
         .social-icons {
             display: flex;
-            gap: 1rem;
+            justify-content: left;
+            gap: 15px;
+            /* espaço entre os ícones */
+            margin-top: 20px;
         }
 
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
+        .social-icon img {
+            width: 40px;
+            /* tamanho do ícone */
+            height: 40px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            /* deixa arredondado tipo botão */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .social-icon:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px) scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        /* efeito ao passar o mouse */
+        .social-icon img:hover {
+            transform: translateY(-5px);
+            /* sobe */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
+
 
         .footer-links {
             list-style: none;
@@ -602,7 +660,7 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
@@ -614,35 +672,6 @@
             margin: 0.2rem 0;
         }
 
-        .payment-methods {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-        }
-
-        .payment-icons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .payment-icon {
-            width: 35px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .payment-icon:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
 
         .footer-wave {
             position: absolute;
@@ -675,11 +704,6 @@
                 justify-content: center;
             }
 
-            .payment-methods {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
             .delivery-info,
             .contact-info {
                 gap: 1rem;
@@ -693,7 +717,7 @@
     <header class="header">
         <div class="header-content">
             <a href="#" class="logo">
-                <img src="img/logo.png" alt="Levoaí" class="logo-img">
+                <img src="img/Logotipo/logo.png" alt="Levoaí" class="logo-img">
             </a>
             <div class="header-icons">
                 <div class="icon-with-text" onclick="toggleLogin()">
@@ -717,21 +741,31 @@
         <div class="menu-content">
             <a href="#promocoes" class="menu-item">Catálogo / Produtos</a>
             <a href="#promocoes" class="menu-item">Promoções</a>
-            <a href="#sobre" class="menu-item">Sobre</a>
-            <a href="#equipe" class="menu-item">Nossa equipe</a>
             <a href="#equipe" class="menu-item">Como Funciona</a>
+            <a href="#equipe" class="menu-item">Nossa equipe</a>
             <a href="#equipe" class="menu-item">Fale Conosco / Suporte</a>
+            <a href="#sobre" class="menu-item">Sobre</a>
         </div>
     </nav>
 
     <!-- Conteúdo Principal -->
     <main class="main-content">
         <!-- Banner Principal -->
-        <section class="banner">
-            <div class="banner-content">
-                <h1>🎉 Super Promoção!</h1>
-                <p>Suas compras, sem sair de casa. Entrega rápida e segura!</p>
+        <section class="banner-carousel">
+            <div class="slides">
+                <div class="slide"><img src="img/Banner/dia da arvore.png" alt="Banner 3"></div>
+                <div class="slide"><img src="img/Banner/banner 01.png" alt="Banner 1"></div>
+                <div class="slide"><img src="img/Banner/banner 02.png" alt="Banner 2"></div>
+                <div class="slide"><img src="img/Banner/banner 03.png" alt="Banner 3"></div>
+                <!-- basta adicionar novas imagens aqui -->
             </div>
+
+            <!-- Botões -->
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+            <!-- Os pontinhos serão criados automaticamente -->
+            <div class="indicators"></div>
         </section>
 
         <!-- Categorias -->
@@ -746,8 +780,10 @@
                     <div class="category-icon">🛒</div>
                     <div class="category-name">Mercearia</div>
                 </div>
-                <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">💚 👨🏻‍🌾</div>
+                <div class="category-card" onclick="filterCategory('saudabilidade')">
+                    <div class="category-icon">
+                        <img src="img/Logotipo-Marcas/saudabilidade.png" alt="saudabilidade">
+                    </div>
                     <div class="category-name">Saudabilidade</div>
                 </div>
                 <div class="category-card" onclick="filterCategory('hortifruti')">
@@ -774,24 +810,35 @@
                     <div class="category-icon">🛍️</div>
                     <div class="category-name">Especial Importados</div>
                 </div>
-                <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">🍫</div>
+                <div class="category-card" onclick="filterCategory('nestle')">
+                    <div class="category-icon">
+                        <img src="img/Logotipo-Marcas/nestle.svg" alt="Nestlé">
+                    </div>
                     <div class="category-name">Nestlé</div>
                 </div>
-                <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">🥫</div>
-                    <div class="category-name">Quero</div>
+                <div class="category-card" onclick="filterCategory('quero-hemmer')">
+                    <div class="category-icon multiple-icons">
+                        <img src="img/Logotipo-Marcas/quero.png" alt="Quero" class="brand-icon">
+                        <img src="img/Logotipo-Marcas/hemmer.png" alt="Hemmer" class="brand-icon">
+                    </div>
+                    <div class="category-name">Quero / Hemmer</div>
                 </div>
-                <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">🍵</div>
+                <div class="category-card" onclick="filterCategory('valefertil')">
+                    <div class="category-icon">
+                        <img src="img/Logotipo-Marcas/vale-fertil.png" alt="Vale fertil">
+                    </div>
                     <div class="category-name">Vale Fertil</div>
                 </div>
-                <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">🧻</div>
+                <div class="category-card" onclick="filterCategory('cremer')">
+                    <div class="category-icon">
+                        <img src="img/Logotipo-Marcas/cremer.png" alt="cremer">
+                    </div>
                     <div class="category-name">Cremer</div>
                 </div>
-                <div class="category-card" onclick="filterCategory('bebidas')">
-                    <div class="category-icon">🧴</div>
+                <div class="category-card" onclick="filterCategory('brilholac')">
+                    <div class="category-icon">
+                        <img src="img/Logotipo-Marcas/brilholac.webp" alt="brilholac">
+                    </div>
                     <div class="category-name">Brilholac</div>
                 </div>
             </div>
@@ -880,17 +927,26 @@
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="img/logo.png" alt="Levoaí" class="footer-logo-img">
+                    <img src="img/Logotipo/logo.png" alt="Levoaí" class="footer-logo-img">
                 </div>
                 <p class="footer-description">
                     Suas compras, sem sair de casa. Delivery rápido e seguro para toda Brusque e região.
                 </p>
                 <div class="social-icons">
-                    <a href="#" class="social-icon">📘</a>
-                    <a href="#" class="social-icon">📷</a>
-                    <a href="#" class="social-icon">💬</a>
-                    <a href="#" class="social-icon">📺</a>
+                    <a href="https://www.instagram.com/suaempresa" target="_blank" class="social-icon">
+                        <img src="img/Social media/instagram.png" alt="Instagram">
+                    </a>
+                    <a href="https://www.facebook.com/suaempresa" target="_blank" class="social-icon">
+                        <img src="img/Social media/facebook.svg" alt="Facebook">
+                    </a>
+                    <a href="https://wa.me/5599999999999" target="_blank" class="social-icon">
+                        <img src="img/Social media/linkedin.png" alt="WhatsApp">
+                    </a>
+                    <a href="https://www.youtube.com/@suaempresa" target="_blank" class="social-icon">
+                        <img src="img/Social media/youtube.png" alt="YouTube">
+                    </a>
                 </div>
+
             </div>
 
             <div class="footer-section">
@@ -904,53 +960,15 @@
                 </ul>
             </div>
 
-            <div class="footer-section">
-                <h3>Categorias</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Carnes e Frangos</a></li>
-                    <li><a href="#">Bebidas</a></li>
-                    <li><a href="#">Hortifruti</a></li>
-                    <li><a href="#">Higiene Pessoal</a></li>
-                    <li><a href="#">Limpeza</a></li>
-                    <li><a href="#">Padaria</a></li>
-                </ul>
-            </div>
 
             <div class="footer-section">
-                <h3>Entrega</h3>
-                <div class="delivery-info">
-                    <div class="delivery-item">
-                        <span class="delivery-icon">🚚</span>
-                        <div>
-                            <strong>Entrega </strong>
-                            <p>Conforme agendamento</p>
-                        </div>
-                    </div>
-                    <div class="delivery-item">
-                        <span class="delivery-icon">📍</span>
-                        <div>
-                            <strong>Cobertura</strong>
-                            <p>Todo Brusque e região</p>
-                        </div>
-                    </div>
-                    <div class="delivery-item">
-                        <span class="delivery-icon">💳</span>
+                <h3>Informações</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">💳</span>
                         <div>
                             <strong>Pagamento</strong>
                             <p>PIX</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-section">
-                <h3>Contato</h3>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <span class="contact-icon">📱</span>
-                        <div>
-                            <strong>(47) 99999-9999</strong>
-                            <p>WhatsApp</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -976,12 +994,6 @@
                 <div class="company-info">
                     <p>&copy; 2025 Levoaí Delivery LTDA. Todos os direitos reservados.</p>
                     <p>CNPJ: 12.345.678/0001-90 | Brusque - Santa Catarina</p>
-                </div>
-                <div class="payment-methods">
-                    <span>Formas de pagamento:</span>
-                    <div class="payment-icons">
-                        <span class="payment-icon">📱</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1056,6 +1068,53 @@
                 }
             });
         });
+
+        // Banner Carousel
+        let currentIndex = 0;
+        const slides = document.querySelectorAll(".slide");
+        const indicatorsContainer = document.querySelector(".indicators");
+
+        // Criar os dots automaticamente
+        slides.forEach((_, i) => {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            dot.addEventListener("click", () => currentSlide(i));
+            indicatorsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll(".dot");
+
+        function showSlide(index) {
+            if (index >= slides.length) currentIndex = 0;
+            else if (index < 0) currentIndex = slides.length - 1;
+            else currentIndex = index;
+
+            const offset = -currentIndex * 100;
+            document.querySelector(".slides").style.transform = `translateX(${offset}%)`;
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("active", i === currentIndex);
+            });
+        }
+
+        function moveSlide(step) {
+            showSlide(currentIndex + step);
+        }
+
+        function currentSlide(index) {
+            showSlide(index);
+        }
+
+        // Inicializa
+        showSlide(0);
+
+        // Auto-play (passa a cada 5s)
+        setInterval(() => {
+            moveSlide(1);
+        }, 5000);
+
+        // fim banner-Carousel
+
     </script>
 </body>
 
